@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  server:
+    image: jetbrains/teamcity-server:2023.05.6
+    environment:
+         - TEAMCITY_CONTEXT=/teamcity/
+    container_name: teamcity
+    restart: always
+    ports:
+     - 8111:8111
+    volumes:
+     - ./server/data:/data/teamcity_server/datadir
+     - ./server/logs:/opt/teamcity/logs
+     - ./server/conf/server.xml:/opt/teamcity/conf/server.xml
+  agent:
+      image: jetbrains/teamcity-agent
+      environment:
+         - SERVER_URL=http://server:8111/teamcity/
+         - AGENT_NAME=build-agent-01
+      volumes:
+         - ./agent/conf:/data/teamcity_agent/conf
+         - ./agent/work:/opt/buildagent/work
+         - ./agent/system:/opt/buildagent/system
+         - ./agent/www:/var/www
+      depends_on:
+         - server
