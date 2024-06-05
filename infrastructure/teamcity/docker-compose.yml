@@ -1,27 +1,39 @@
-version: '3'
+version: '3.1'
 
 services:
   server:
-    image: jetbrains/teamcity-server:2023.05.6
+    image: jetbrains/teamcity-server:${TEAMCITY_VERSION}
     environment:
-         - TEAMCITY_CONTEXT=/teamcity/
+      - TEAMCITY_CONTEXT=/teamcity/
     container_name: teamcity
     restart: always
     ports:
-     - 8111:8111
+      - 8111:8111
     volumes:
-     - ./server/data:/data/teamcity_server/datadir
-     - ./server/logs:/opt/teamcity/logs
-     - ./server/conf/server.xml:/opt/teamcity/conf/server.xml
+      - ./server/data:/data/teamcity_server/datadir
+      - ./server/logs:/opt/teamcity/logs
+      - ./server/conf/server.xml:/opt/teamcity/conf/server.xml
+    networks:
+      - teamcity-net
+
   agent:
-      image: jetbrains/teamcity-agent
-      environment:
-         - SERVER_URL=http://server:8111/teamcity/
-         - AGENT_NAME=build-agent-01
-      volumes:
-         - ./agent/conf:/data/teamcity_agent/conf
-         - ./agent/work:/opt/buildagent/work
-         - ./agent/system:/opt/buildagent/system
-         - ./agent/www:/var/www
-      depends_on:
-         - server
+    image: jetbrains/teamcity-agent:${TEAMCITY_VERSION}-linux-sudo
+    privileged: true
+    environment:
+      - SERVER_URL=http://server:8111/teamcity/
+      - AGENT_NAME=build-agent-01
+      - DOCKER_IN_DOCKER=start
+    volumes:
+      - ./agent/conf:/data/teamcity_agent/conf
+      - ./agent/work:/opt/buildagent/work
+      - ./agent/system:/opt/buildagent/system
+      - ./agent/www:/var/www
+    depends_on:
+      - server
+    networks:
+      - teamcity-net
+
+
+networks:
+  teamcity-net:
+    driver: bridge
