@@ -1,7 +1,7 @@
 import { getPgTestTypeOrmModule } from "@app/entity/getPgTestTypeOrmModule";
-import { User } from "@app/entity/user/User.entity";
-import { UserModule } from "@app/entity/user/User.module";
-import { UserQueryRepository } from "@app/entity/user/UserQueryRepository";
+import { User } from "@app/entity/domain/user/user.entity";
+import { UserModule } from "@app/entity/domain/user/user.module";
+import { UserQueryRepository } from "@app/entity/domain/user/user.query.repository";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Repository } from "typeorm";
 

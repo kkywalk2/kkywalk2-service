@@ -1,7 +1,7 @@
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { User } from "@app/entity/user/User.entity";
+import { User } from "@app/entity/domain/user/user.entity";
 import { Module } from "@nestjs/common";
-import { UserQueryRepository } from "@app/entity/user/UserQueryRepository";
+import { UserQueryRepository } from "@app/entity/domain/user/user.query.repository";
 
 @Module({
     imports: [TypeOrmModule.forFeature([User])],
