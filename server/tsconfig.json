@@ -29,6 +29,12 @@
       ],
       "@app/utils/*": [
         "libs/utils/src/*"
+      ],
+      "@app/api": [
+        "apps/api/src"
+      ],
+      "@app/api/*": [
+        "apps/api/src/*"
       ]
     }
   }
