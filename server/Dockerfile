@@ -18,7 +18,6 @@ COPY --chown=node:node . .
 
 RUN yarn build-api
 
-ENV NODE_ENV production
 RUN yarn --frozen-lockfile --production;
 RUN rm -rf ./.next/cache
 
@@ -30,6 +29,8 @@ WORKDIR /apps
 
 COPY --chown=node:node --from=build /apps/node_modules ./node_modules
 COPY --chown=node:node --from=build /apps/dist ./dist
+
+ENV NODE_ENV production
 
 EXPOSE 3000
 
