@@ -1,10 +1,27 @@
-import { Controller, Get } from '@nestjs/common';
+import { UserService } from '@app/entity/domain/user/user.service';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { todo } from 'node:test';
+import { CreateUserDto } from '@app/api/users/dto/create-user.input';
+import { Roles } from '@app/api/config/role/roles.decorator';
+import { Role } from '@app/api/config/role/role.enum';
 
-@Controller("/users")
+@Controller('/users')
 export class UserController {
+  constructor(private readonly userService: UserService) { }
 
-  @Get()
-  get(): string {
-    return "hey! i am user controller!";
+  @Post()
+  create(@Body() createUserDto: CreateUserDto) {
+    todo("create user");
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    todo("get user by id");
+  }
+
+  @Delete(':id')
+  @Roles(Role.Admin)
+  remove(@Param('id') id: string) {
+    todo("delete user by id");
   }
 }

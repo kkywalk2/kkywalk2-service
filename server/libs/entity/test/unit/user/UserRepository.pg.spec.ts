@@ -1,6 +1,6 @@
 import { getPgTestTypeOrmModule } from "@app/entity/getPgTestTypeOrmModule";
 import { User } from "@app/entity/domain/user/user.entity";
-import { UserModule } from "@app/entity/domain/user/user.module";
+import { UserDomainModule } from "@app/entity/domain/user/user.module";
 import { UserQueryRepository } from "@app/entity/domain/user/user.query.repository";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Repository } from "typeorm";
@@ -11,7 +11,7 @@ describe('UserQueryRepository', () => {
 
     beforeAll(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            imports: [UserModule, getPgTestTypeOrmModule()],
+            imports: [UserDomainModule, getPgTestTypeOrmModule()],
         }).compile();
 
         userQueryRepository = module.get<UserQueryRepository>(UserQueryRepository);
