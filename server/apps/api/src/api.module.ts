@@ -4,11 +4,13 @@ import { UserModule } from '@app/api/users/user.module';
 import { APP_GUARD } from '@nestjs/core';
 import { DBModule } from '@app/entity/db.module';
 import { RolesGuard } from '@app/api/config/role/roles.guard';
+import { AuthModule } from '@app/entity/domain/auth/auth.module';
 
 @Module({
   imports: [
     HealthModule, 
     UserModule,
+    AuthModule,
     DBModule,
   ],
   controllers: [],
