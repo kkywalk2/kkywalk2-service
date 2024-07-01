@@ -9,4 +9,16 @@ export class UserService {
     async findOne(email: string): Promise<User> {
         return await this.userQueryRepository.findByEmail(email);
     }
+
+    testGetOne(id: number): User {
+        const user: User = {
+            id: id,
+            email: "kkywalk2@naver.com",
+            password: "1234",
+            nickname: "jamgujang",
+            isActive: true,
+            createdAt: new Date(Date.now()),
+        }
+        return user;
+    }
 }
