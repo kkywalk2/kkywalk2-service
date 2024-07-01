@@ -4,6 +4,7 @@ import { Role } from '@app/api/config/role/role.enum';
 import { ROLES_KEY } from '@app/api/config/role/roles.decorator';
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
+import { TokenPayload } from '@app/entity/domain/auth/token-payload.model';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -13,7 +14,7 @@ export class RolesGuard implements CanActivate {
     ) { }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
-    
+
         const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
             context.getHandler(),
             context.getClass(),
@@ -29,21 +30,19 @@ export class RolesGuard implements CanActivate {
         }
 
         try {
-            // TODO: 서버 내에서 사용할 Context 정의 필요
-            const payload = await this.jwtService.verifyAsync(
+            const payload = await this.jwtService.verifyAsync<TokenPayload>(
                 token,
                 {
                     secret: 'need something secret!'
                 }
             );
             request['user'] = payload;
+
+            // TODO: role이 여러개 될 수 도 있을지...
+            return requiredRoles.some((role) => payload.role === role);
         } catch {
             throw new UnauthorizedException();
         }
-
-        // TODO: 서버 내에서 사용할 Context 정의 필요
-        const { user } = context.switchToHttp().getRequest();
-        return requiredRoles.some((role) => user.roles?.includes(role));
     }
 
 

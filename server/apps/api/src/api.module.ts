@@ -5,6 +5,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { DBModule } from '@app/entity/db.module';
 import { RolesGuard } from '@app/api/config/role/roles.guard';
 import { AuthModule } from '@app/entity/domain/auth/auth.module';
+import { AuthControllerModule } from '@app/api/auth/auth.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { AuthModule } from '@app/entity/domain/auth/auth.module';
     UserModule,
     AuthModule,
     DBModule,
+    AuthControllerModule,
   ],
   controllers: [],
   providers: [
