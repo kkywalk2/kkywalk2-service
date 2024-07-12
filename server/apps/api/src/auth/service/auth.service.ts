@@ -8,8 +8,8 @@ import { Role } from '@app/api/config/role/role.enum';
 export class AuthService {
   constructor(
     private usersService: UserService,
-    private jwtService: JwtService
-  ) { }
+    private jwtService: JwtService,
+  ) {}
 
   async signIn(
     email: string,
@@ -19,7 +19,11 @@ export class AuthService {
     if (user?.password !== password) {
       throw new UnauthorizedException();
     }
-    const payload: TokenPayload = { sub: user.id, username: user.email, role: Role.User };
+    const payload: TokenPayload = {
+      sub: user.id,
+      username: user.email,
+      role: Role.User,
+    };
     return {
       accessToken: await this.jwtService.signAsync(payload),
     };
