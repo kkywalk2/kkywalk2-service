@@ -1,21 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { PostType } from "@app/entity/domain/post/post.type"
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Post {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class LinkSummaryPost {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    userId: number;
+  @Column()
+  userId: number;
 
-    @Column()
-    content: string;
+  @Column()
+  content: string;
 
-    @Column({ type: "varchar", length: 20 })
-    public type: PostType;
+  @Column()
+  linkUrl: string;
 
-    // TODO: type 별로 json property 구체화 하는 법?
-    @Column({ type: 'text' })
-    public properties;
+  @Column()
+  createdAt: Date;
 }

@@ -14,8 +14,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
 
-  if (process.env.NODE_ENV == "production") {
-    app.setGlobalPrefix("kkywalk2-service/api");
+  if (process.env.NODE_ENV == 'production') {
+    app.setGlobalPrefix('kkywalk2-service/api');
     SwaggerModule.setup('kkywalk2-service/api/swagger', app, document);
   } else {
     SwaggerModule.setup('swagger', app, document);

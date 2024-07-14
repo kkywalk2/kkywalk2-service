@@ -6,6 +6,7 @@ import { DBModule } from '@app/entity/db.module';
 import { RolesGuard } from '@app/api/config/role/roles.guard';
 import { AuthModule } from '@app/api/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { PostModule } from '@app/api/posts/post.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ConfigModule } from '@nestjs/config';
     UserModule,
     DBModule,
     AuthModule,
+    PostModule,
     ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [],

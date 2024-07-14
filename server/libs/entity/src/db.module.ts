@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { User } from '@app/entity/domain/user/user.entity';
-import { Post } from '@app/entity/domain/post/post.entity';
+import { LinkSummaryPost } from '@app/entity/domain/post/post.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
@@ -16,7 +16,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         username: configService.get<string>('DATABASE_USER'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_DB'),
-        entities: [User, Post],
+        entities: [User, LinkSummaryPost],
         synchronize: true,
         namingStrategy: new SnakeNamingStrategy(),
       }),

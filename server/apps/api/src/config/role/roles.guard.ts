@@ -10,12 +10,14 @@ import { ROLES_KEY } from '@app/api/config/role/roles.decorator';
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { TokenPayload } from '@app/api/auth/service/token-payload.model';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -35,7 +37,7 @@ export class RolesGuard implements CanActivate {
 
     try {
       const payload = await this.jwtService.verifyAsync<TokenPayload>(token, {
-        secret: 'need something secret!',
+        secret: this.configService.get<string>('JWT_SECRET'),
       });
       request['user'] = payload;
 
