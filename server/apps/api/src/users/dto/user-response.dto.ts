@@ -1,15 +1,15 @@
-import { Expose } from "class-transformer";
+import { Expose } from 'class-transformer';
 
-export class UserResponseDto{
-    @Expose()
-    id: number;
+export class UserResponseDto {
+  @Expose()
+  id: number;
 
-    @Expose()
-    email: string;
+  @Expose()
+  email: string;
 
-    @Expose()
-    nickname: string;
+  @Expose()
+  nickname: string;
 
-    @Expose()
-    createdAt: Date;
+  @Expose()
+  createdAt: Date;
 }

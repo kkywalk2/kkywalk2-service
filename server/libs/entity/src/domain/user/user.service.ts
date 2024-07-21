@@ -6,18 +6,30 @@ import { User } from '@app/entity/domain/user/user.entity';
 export class UserService {
   constructor(private userQueryRepository: UserQueryRepository) {}
 
-  async findOne(email: string): Promise<User> {
-    return await this.userQueryRepository.findByEmail(email);
-  }
-
-  testGetOne(id: number): User {
-    return {
-      id: id,
-      email: 'kkywalk2@naver.com',
-      password: '1234',
-      nickname: 'jamgujang',
+  async create(
+    email: string,
+    password: string,
+    nickname: string,
+  ): Promise<User> {
+    return await this.userQueryRepository.save({
+      email: email,
+      password: password,
+      nickname: nickname,
       isActive: true,
       createdAt: new Date(Date.now()),
-    };
+    });
+  }
+
+  async delete(id: number): Promise<User> {
+    const user = await this.userQueryRepository.findById(id);
+    return await this.userQueryRepository.remove(user);
+  }
+
+  async findById(id: number): Promise<User> {
+    return await this.userQueryRepository.findById(id);
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    return await this.userQueryRepository.findByEmail(email);
   }
 }
