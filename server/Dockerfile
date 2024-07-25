@@ -34,6 +34,13 @@ ENV NODE_ENV production
 
 EXPOSE 3000
 
-ENV PORT 3000
+ENV PORT=3000\
+    OPEN_AI_API_KEY=TEST\
+    DATABASE_HOST=localhost\
+    DATABASE_PORT=5432\
+    DATABASE_USER=test\
+    DATABASE_PASSWORD=test\
+    DATABASE_DB=test\
+    JWT_SECRET=test
 
 CMD [ "node", "dist/apps/api/main.js" ]
