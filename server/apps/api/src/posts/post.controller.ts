@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Request } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Request } from '@nestjs/common';
 import { CreatePostDto } from '@app/api/posts/dto/create-post.dto';
 import { Roles } from '@app/api/config/role/roles.decorator';
 import { Role } from '@app/api/config/role/role.enum';
@@ -26,7 +26,7 @@ export class PostController {
 
   @Get()
   async getByUserId(
-    @Param('userId') userId: number,
+    @Query('userId') userId: number,
   ): Promise<PostResponseDto[]> {
     const result = await this.postService.getByUserId(userId);
     return plainToInstance(PostResponseDto, result);
